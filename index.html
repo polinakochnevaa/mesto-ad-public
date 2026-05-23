@@ -8,8 +8,8 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mesto</title>
-    <script type="module" crossorigin src="./assets/index-5YOIonHU.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BeFEUn3n.css">
+    <script type="module" crossorigin src="./assets/index-rdw74txK.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C3SQhsUq.css">
   </head>
   <body class="page">
     <div class="page__content">
@@ -23,7 +23,7 @@
 
       <main class="content">
         <section class="profile page__section">
-          <div class="profile__image" aria-label="Редактировать аватар"></div>
+          <div class="profile__image"></div>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
             <button
@@ -54,7 +54,7 @@
           <button
             type="button"
             class="popup__close"
-            aria-label="Закрыть окно редактирования профиля"
+            aria-label="Закрыть"
           ></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form" name="edit-profile" novalidate>
@@ -65,12 +65,12 @@
                 id="user-name"
                 class="popup__input popup__input_type_name"
                 placeholder="Имя"
+                required
                 minlength="2"
                 maxlength="40"
-                pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
-                required
+                pattern="[A-Za-zА-Яа-яЁё\s\-]+"
               />
-              <span class="popup__error user-name-error"></span>
+              <span class="popup__error" id="user-name-error"></span>
             </label>
             <label class="popup__label">
               <input
@@ -79,11 +79,11 @@
                 id="user-description"
                 class="popup__input popup__input_type_description"
                 placeholder="Занятие"
+                required
                 minlength="2"
                 maxlength="200"
-                required
               />
-              <span class="popup__error user-description-error"></span>
+              <span class="popup__error" id="user-description-error"></span>
             </label>
             <button
               type="submit"
@@ -101,7 +101,7 @@
           <button
             type="button"
             class="popup__close"
-            aria-label="Закрыть окно добавления карточки"
+            aria-label="Закрыть"
           ></button>
           <h3 class="popup__title">Новое место</h3>
           <form class="popup__form" name="new-place" novalidate>
@@ -112,12 +112,12 @@
                 id="place-name"
                 class="popup__input popup__input_type_card-name"
                 placeholder="Название"
+                required
                 minlength="2"
                 maxlength="30"
-                pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
-                required
+                pattern="[A-Za-zА-Яа-яЁё\s\-]+"
               />
-              <span class="popup__error place-name-error"></span>
+              <span class="popup__error" id="place-name-error"></span>
             </label>
             <label class="popup__label">
               <input
@@ -128,7 +128,7 @@
                 placeholder="Ссылка на картинку"
                 required
               />
-              <span class="popup__error place-link-error"></span>
+              <span class="popup__error" id="place-link-error"></span>
             </label>
             <button
               type="submit"
@@ -146,7 +146,7 @@
           <button
             type="button"
             class="popup__close"
-            aria-label="Закрыть окно просмотра изображения"
+            aria-label="Закрыть"
           ></button>
           <img src="" alt="" class="popup__image" />
           <p class="popup__caption"></p>
@@ -158,7 +158,7 @@
           <button
             type="button"
             class="popup__close"
-            aria-label="Закрыть окно подтверждения удаления"
+            aria-label="Закрыть"
           ></button>
           <h3 class="popup__title">Вы уверены?</h3>
           <form class="popup__form" name="remove-card" novalidate>
@@ -172,7 +172,7 @@
           <button
             type="button"
             class="popup__close"
-            aria-label="Закрыть окно обновления аватара"
+            aria-label="Закрыть"
           ></button>
           <h3 class="popup__title">Обновить аватар</h3>
           <form class="popup__form" name="edit-avatar" novalidate>
@@ -185,7 +185,7 @@
                 placeholder="Ссылка на изображение"
                 required
               />
-              <span class="popup__error user-avatar-error"></span>
+              <span class="popup__error" id="user-avatar-error"></span>
             </label>
             <button
               type="submit"
@@ -197,6 +197,20 @@
           </form>
         </div>
       </div>
+
+      <div class="popup popup_type_info">
+        <div class="popup__content popup__content_content_info">
+          <button
+            type="button"
+            class="popup__close"
+            aria-label="Закрыть"
+          ></button>
+          <h3 class="popup__title"></h3>
+          <dl class="popup__info"></dl>
+          <h4 class="popup__text"></h4>
+          <ul class="popup__list"></ul>
+        </div>
+      </div>
     </div>
 
 
@@ -204,6 +218,11 @@
       <li class="places__item card">
         <img class="card__image" src="" alt="" />
         <div class="card__control">
+          <button
+            type="button"
+            class="card__control-button card__control-button_type_info"
+            aria-label="Информация о карточке"
+          ></button>
           <button
             type="button"
             class="card__control-button card__control-button_type_delete"
@@ -218,10 +237,21 @@
               class="card__like-button"
               aria-label="Поставить лайк"
             ></button>
-            <p class="card__like-count">0</p>
+            <p class="card__like-count"></p>
           </div>
         </div>
       </li>
+    </template>
+
+    <template id="popup-info-definition-template">
+      <div class="popup__info-item">
+        <dt class="popup__info-term"></dt>
+        <dd class="popup__info-description"></dd>
+      </div>
+    </template>
+
+    <template id="popup-info-user-preview-template">
+      <li class="popup__list-item popup__list-item_type_badge"></li>
     </template>
   </body>
 </html>
